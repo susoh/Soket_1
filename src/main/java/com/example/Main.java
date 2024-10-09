@@ -17,11 +17,18 @@ public class Main {
         BufferedReader in = new BufferedReader(new InputStreamReader(mySocket.getInputStream()));
         DataOutputStream out = new DataOutputStream(mySocket.getOutputStream());
 
-        String stringaRicevuta = in.readLine();
+        String stringaRicevuta;
+        do {
+            stringaRicevuta = in.readLine();
+            if(stringaRicevuta == "!") {
+            mySocket.close();
+            ss.close();
+        }
         System.out.println("La stringa ricevuta: " + stringaRicevuta);
 
         String stringMaiuscola = stringaRicevuta.toUpperCase();
         out.writeBytes(stringMaiuscola + "\n");
+        }while(stringaRicevuta != "!");
 
         mySocket.close();
         ss.close();
